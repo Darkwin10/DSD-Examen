@@ -96,15 +96,49 @@ for i in range(len(tablaV)):
 for i in range(len(q)):
 	print("Minitérminos Q", i, ":", q[i])
 
-# # # Expresión canónica
-# # #Primero convertir de decimal a binario
-# # #Cada binario en uno es la entra positiva, cada binario en cero es la entrada negada
-# qBin = []
-# for i in range(len(q)):
-# 	qBin.append([])
-# 	for j in q[i]:
-# 		qBin[i].append(bin(j))
-# for i in range(len(qBin)):
-# 	print("Minitérminos Q", i, ":", qBin[i])
-# #
-# # #print("Canónica Q", i, ":", q[i])
+# Expresión canónica
+# Primero convertir de decimal a lista de dígitos binarios
+# Cada binario en uno es la entra positiva, cada binario en cero es la entrada negada
+qStrBin = []
+for i in range(len(q)):
+	qStrBin.append([])
+	for j in q[i]:
+		qStrBin[i].append(bin(j))
+for i in range(len(qStrBin)):
+	print("Canónica de sumas(Lista de strings binarios) Q", i, ":", qStrBin[i])
+
+ng = nbits(max(intList))
+qBin = []
+l = 0
+for i in qStrBin:  # por cada q
+	qBin.append([])
+	m = 0
+	for j in i:  # por cada minitermino de q[i]
+		qBin[l].append([])
+		for k in range(ng - len(j[2:])):
+			qBin[l][m].append(0)
+		for k in j[2:]:
+			qBin[l][m].append(int(k))
+		m += 1
+	l += 1
+for i in range(len(qBin)):
+	print("Canónica de sumas(Lista de dígitos binarioss) Q", i, ":", qBin[i])
+
+# ng = nbits(max(intList))
+# print(ng)
+# binList = []
+# k = 0
+# for i in strBinList:
+# 	binList.append([])
+# 	for j in range(ng - len(i[2:])):
+# 		binList[k].append(0)
+# 	for j in i[2:]:
+# 		binList[k].append(int(j))
+# 	k += 1
+#
+# print(binList)
+# return binList
+
+
+#
+# #print("Canónica Q", i, ":", q[i])
