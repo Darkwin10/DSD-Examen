@@ -81,3 +81,16 @@ print(tablaV)
 # Tabla de verdad numerada
 for i in range(len(tablaV)):
 	print(i, ": ", tablaV[i])
+
+# Minitérminos
+d = []
+for j in range(nbits(ng)):
+	d.append([])
+
+for i in range(len(tablaV)):
+	for j in range(nbits(ng)):
+		if tablaV[i][j] == 1:
+			d[j].append(i)
+
+for i in range(len(d)):
+	print("miniterminos d1:", d[i])
