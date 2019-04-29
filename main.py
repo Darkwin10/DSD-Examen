@@ -73,9 +73,10 @@ print(tablaV)
 
 # Rellenar tabla de verdad
 j = 0
-for i in intList:
-	tablaV[i] = binList[j][:]
+for i in intList[:-1]:
+	tablaV[i] = binList[j + 1][:]
 	j += 1
+tablaV[intList[len(intList) - 1]] = binList[0][:]
 print(tablaV)
 
 # Tabla de verdad numerada
@@ -83,14 +84,27 @@ for i in range(len(tablaV)):
 	print(i, ": ", tablaV[i])
 
 # Minitérminos
-d = []
+q = []
 for j in range(nbits(ng)):
-	d.append([])
+	q.append([])
 
 for i in range(len(tablaV)):
 	for j in range(nbits(ng)):
 		if tablaV[i][j] == 1:
-			d[j].append(i)
+			q[j].append(i)
 
-for i in range(len(d)):
-	print("miniterminos d1:", d[i])
+for i in range(len(q)):
+	print("Minitérminos Q", i, ":", q[i])
+
+# # # Expresión canónica
+# # #Primero convertir de decimal a binario
+# # #Cada binario en uno es la entra positiva, cada binario en cero es la entrada negada
+# qBin = []
+# for i in range(len(q)):
+# 	qBin.append([])
+# 	for j in q[i]:
+# 		qBin[i].append(bin(j))
+# for i in range(len(qBin)):
+# 	print("Minitérminos Q", i, ":", qBin[i])
+# #
+# # #print("Canónica Q", i, ":", q[i])
