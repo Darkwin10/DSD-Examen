@@ -124,21 +124,12 @@ for i in qStrBin:  # por cada q
 for i in range(len(qBin)):
 	print("Canónica de sumas(Lista de dígitos binarioss) Q", i, ":", qBin[i])
 
-# ng = nbits(max(intList))
-# print(ng)
-# binList = []
-# k = 0
-# for i in strBinList:
-# 	binList.append([])
-# 	for j in range(ng - len(i[2:])):
-# 		binList[k].append(0)
-# 	for j in i[2:]:
-# 		binList[k].append(int(j))
-# 	k += 1
-#
-# print(binList)
-# return binList
-
-
-#
-# #print("Canónica Q", i, ":", q[i])
+for i in qBin:
+	funcion = ""
+	for j in i:
+		for k in range(len(j)):
+			funcion += " D" + str(k)
+			if (j[k] == 0):
+				funcion += "'"
+		funcion += "+"
+	print("función canónica de Q", l, ": ", funcion[:-1])
