@@ -1,29 +1,83 @@
-# DSD-Examen
+import math
+import cmath
 
-def validacion(ar):
-	a = ar.split(",")  # separa por comas y guarda en una lista
-	r = len(a)  # espacios de la lista
-	j = 0
-	i = 0
-	for i in range(r):
-		if a[i].isdigit() == 0:  # compara caracteres numericos
-			j = 1  # bandera, cuando la cadena contiene un carater no numerico menosr que 0 la bandera es 1
-	if j == 1:
+
+def nbits(ng):
+	nbitn = math.ceil(math.log2(ng + 1))  # Obtiene el minimo valor entero que sea >= al logaritmo base dos de ng + 1
+	return nbitn
+
+
+def toBin(intList):
+	strBinList = []
+	for i in intList:  # Pasamos la lista de enteros a lista de binarios
+		strBinList.append(bin(i))
+	# print("Lista de binarios:", strBinList)
+
+	ng = nbits(max(intList))
+	print(ng)
+	binList = []
+	k = 0
+	for i in strBinList:
+		binList.append([])
+		for j in range(ng - len(i[2:])):
+			binList[k].append(0)
+		for j in i[2:]:
+			binList[k].append(int(j))
+		k += 1
+
+	print(binList)
+	return binList
+
+
+def val(strList):
+	# Verifica que todos los caracteres sean numéricos
+	onlyNum = 1
+	for i in range(len(strList)):
+		if strList[i].isdigit() == 0:  # compara caracteres numericos
+			onlyNum = 0  # bandera, cuando la cadena contiene un carater no numerico menosr que 0 la bandera es 0
+	if onlyNum == 0:
 		print("La entrada de caracteres debe ser numeros enteros positivos o 0")
 		exit()
-	print("arreglo validado:", a)
-	serie = []
-	i = 0
-	for i in a:
-		if i not in serie:  # quita repeticiones de numeros
-			serie.append(i)
-	print("arreglo normal sin repeticiones: ", serie)
-	i = 0
-	serie = {}
-	for i in range(r):
-		serie[i] = int(a[i])  # casteo para pasar la lista a enteros
-	print("suma de los dos primeros para comprobar el casteo a entero:", serie[0] + serie[1])
+	print("Arreglo validado:", strList)
 
 
-ar = str(input("hola"))
-validacion(ar)
+cad = str(input("Introduce la serie(Números separados únicamente por comas):\n"))
+strList = cad.split(",")  # separa por comas y guarda en una lista
+val(strList)
+
+# Eliminar repeticiones y convertir a enteros
+intList = []
+for i in strList:
+	if i not in intList:  # quita repeticiones de numeros
+		intList.append(int(i))
+print("Arreglo entero sin repeticiones: ", intList)
+print("Suma de los dos primeros para comprobar el casteo a entero:", intList[0] + intList[1])
+
+# Número más grande de la serie
+ng = max(intList)
+print("Número mas grande en la lista", ng)
+
+# Convierte la serie a binarios
+binList = toBin(intList)
+
+# Obtenemos el número de bits necesarios para la serie
+print("Número de bits necesarios:", nbits(ng))  # Bits que se van a ocupar
+
+# Inicializar tabla de verdad
+tablaV = []
+for i in range(2 ** nbits(ng)):
+	tablaV.append([])
+	for j in range(nbits(ng)):
+		tablaV[i].append("x")
+print(tablaV)
+
+# Rellenar tabla de verdad
+j = 0
+for i in intList:
+	tablaV[i] = binList[j][:]
+	j += 1
+print(tablaV)
+
+# Tabla de verdad numerada
+for i in range(len(tablaV)):
+	print(i, ": ", tablaV[i])
